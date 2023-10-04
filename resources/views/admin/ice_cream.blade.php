@@ -2,20 +2,19 @@
 
 @section('content')
 
-
-<h4 class="mt-3">Data Es Krim dan Supplier</h4>
+<h4 class="mt-4">Data Es Krim</h4>
 
 <a href="{{ route('admin.create') }}" type="button" class="btn btn-primary rounded-3 mb-2">Tambah Data Es Krim</a>
-<a href="{{ route('admin.showIce') }}" type="button" class="btn btn-outline-success rounded-3 mb-2 ml-3">Daftar Es Krim</a>
+<a href="{{ route('admin.showIce') }}" type="button" class="btn btn-success rounded-3 mb-2 ml-3 disabled">Daftar Es Krim</a>
 <a href="{{ route('admin.showSup') }}" type="button" class="btn btn-outline-success rounded-3 mb-2 ml-3">Daftar Supplier</a>
 
 @if($message = Session::get('success'))
-<div class="alert alert-success mt-3" role="alert">
+<div class="alert alert-success" role="alert">
     {{ $message }}
 </div>
 @endif
 
-<form action="{{route('admin.index')}}" method="GET" class="mb-2 mt-1">
+<form action="{{route('admin.showIce')}}" method="GET" class="mb-3 mt-1">
     <input type="text" name="search" class="form-control rounded-1" placeholder="Cari Es Krim" value="{{$searchTerm}}">
 </form>
 
@@ -26,8 +25,7 @@
             <th>Merk</th>
             <th>Rasa</th>
             <th>Harga</th>
-            <th>Supplier</th>
-            <th>EST.</th>
+            <th>ID Supplier</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -38,8 +36,7 @@
             <td>{{ $data->merk }}</td>
             <td>{{ $data->rasa }}</td>
             <td>{{ $data->harga }}</td>
-            <td>{{ $data->nama_supplier }}</td>
-            <td>{{ $data->established}}</td>
+            <td>{{ $data->id_supplier }}</td>
             <td>
                 <a href="{{ route('admin.edit', $data->id_es_krim) }}" type="button"
                     class="btn btn-warning rounded-3">Ubah</a>

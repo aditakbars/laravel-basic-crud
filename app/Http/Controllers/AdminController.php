@@ -11,17 +11,47 @@ class AdminController extends Controller
     public function index(Request $request)
     {
         $searchTerm = $request->input('search');
-    
         // Query data admin dengan filter berdasarkan nama jika search term ada
         if ($searchTerm) {
             $datas = DB::select('SELECT e.id_es_krim, e.merk, e.rasa, e.harga, s.nama_supplier, s.established FROM `es_krim` e LEFT JOIN supplier s ON e.id_supplier = s.id_supplier WHERE merk LIKE ? OR rasa LIKE ?', ['%' . $searchTerm . '%', '%' . $searchTerm . '%']);
         } else {
-            // Jika tidak ada search term, tampilkan semua data admin
+        // Jika tidak ada search term, tampilkan semua data admin
             $datas = DB::select('SELECT e.id_es_krim, e.merk, e.rasa, e.harga, s.nama_supplier, s.established FROM `es_krim` e LEFT JOIN supplier s ON e.id_supplier = s.id_supplier');
         }
     
         return view('admin.index')->with('datas', $datas)->with('searchTerm', $searchTerm);
     }
+
+    public function showIce(Request $request)
+    {
+        $searchTerm = $request->input('search');
+    
+        // Query data admin dengan filter berdasarkan nama jika search term ada
+        if ($searchTerm) {
+            $datas = DB::select('SELECT * FROM `es_krim`  WHERE merk LIKE ? OR rasa LIKE ?', ['%' . $searchTerm . '%', '%' . $searchTerm . '%']);
+        } else {
+            // Jika tidak ada search term, tampilkan semua data admin
+            $datas = DB::select('SELECT * FROM `es_krim`');
+        }
+    
+        return view('admin.ice_cream')->with('datas', $datas)->with('searchTerm', $searchTerm);
+    }
+
+    public function showSup(Request $request)
+    {
+        $searchTerm = $request->input('search');
+    
+        // Query data admin dengan filter berdasarkan nama jika search term ada
+        if ($searchTerm) {
+            $datas = DB::select('SELECT * FROM `supplier`  WHERE nama LIKE ?', ['%' . $searchTerm . '%']);
+        } else {
+            // Jika tidak ada search term, tampilkan semua data admin
+            $datas = DB::select('SELECT * FROM `supplier`');
+        }
+    
+        return view('admin.supplier')->with('datas', $datas)->with('searchTerm', $searchTerm);
+    }
+
     //
     public function create()
     {
@@ -90,5 +120,14 @@ class AdminController extends Controller
         DB::update('ALTER TABLE es_krim DROP id_es_krim');
         DB::update('ALTER TABLE es_krim ADD id_es_krim INT NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST');
         return redirect()->route('admin.index')->with('success', 'Data Es Krim berhasil dihapus');
+    }
+
+    public function deleteSup($id)
+    {
+        //$merk = DB::select('SELECT merk FROM es_krim WHERE id_es_krim = :id_es_krim', ['id_es_krim' => $id]);
+        DB::delete('DELETE FROM supplier WHERE id_supplier = :id_supplier', ['id_supplier' => $id]);
+        DB::update('ALTER TABLE supplier DROP id_supplier');
+        DB::update('ALTER TABLE supplier ADD id_supplier INT NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST');
+        return redirect()->route('admin.supplier')->with('success', 'Data Supplier berhasil dihapus');
     }
 }

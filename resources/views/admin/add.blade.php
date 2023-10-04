@@ -29,10 +29,6 @@
                 <label for="harga" class="form-label">Harga</label>
                 <input type="text" class="form-control" id="harga" name="harga">
             </div>
-            <!-- <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" name="password">
-            </div> -->
             <div class="mb-3">
                 <label for="Supplier" class="form-label">Supplier</label>
                 <select class="form-select" aria-label="Default select example" name="id_supplier" id="">

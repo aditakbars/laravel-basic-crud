@@ -110,8 +110,9 @@ class AdminController extends Controller
     // public function edit a row from a table
     public function edit($id)
     {
-        $data = DB::table('es_krim')->where('id_es_krim', $id)->first();
-        $datas = DB::select('SELECT * FROM es_krim');
+        $data = DB::select("SELECT * FROM es_krim WHERE id_es_krim = $id");
+        $data = $data[0];
+        $datas = DB::select("SELECT * FROM es_krim");
         $datasups = DB::select('SELECT * FROM supplier');
         return view('admin.edit')->with('data', $data)->with('datas', $datas)->with('datasups', $datasups);
     }

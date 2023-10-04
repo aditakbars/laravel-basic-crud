@@ -143,7 +143,8 @@ class AdminController extends Controller
 
     public function editSup($id)
     {
-        $data = DB::table('supplier')->where('id_supplier', $id)->first();
+        $data = DB::select("SELECT * FROM supplier WHERE id_supplier = $id");
+        $data = $data[0];
         $datas = DB::select('SELECT * FROM supplier');
         return view('admin.edit_sup')->with('data', $data)->with('datas', $datas);
     }

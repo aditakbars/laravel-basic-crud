@@ -85,10 +85,7 @@ class AdminController extends Controller
     // public function to delete a row from a table
     public function delete($id)
     {
-        DB::delete('DELETE FROM admin WHERE id_es_krim = :id_es_krim', ['id_es_krim' => $id]);
+        DB::delete('DELETE FROM es_krim WHERE id_es_krim = :id_es_krim', ['id_es_krim' => $id]);
         return redirect()->route('admin.index')->with('success', 'Data Es Krim berhasil dihapus');
     }
-
-    
-
 }

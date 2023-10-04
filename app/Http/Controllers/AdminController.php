@@ -54,7 +54,8 @@ class AdminController extends Controller
     {
         $data = DB::table('es_krim')->where('id_es_krim', $id)->first();
         $datas = DB::select('SELECT * FROM es_krim');
-        return view('admin.edit')->with('data', $data)->with('datas', $datas);
+        $datasups = DB::select('SELECT * FROM supplier');
+        return view('admin.edit')->with('data', $data)->with('datas', $datas)->with('datasups', $datasups);
     }
 
     // public function to update the table value
@@ -64,18 +65,17 @@ class AdminController extends Controller
             'merk_eskrim' => 'required',
             'rasa' => 'required',
             'harga' => 'required',
-            'supplier' => 'required',
+            'id_supplier' => 'required',
         ]);
 
         DB::update(
-            'UPDATE admin SET id_admin = :id_admin, nama_admin = :nama_admin, alamat = :alamat, username = :username, password = :password WHERE id_admin = :id',
+            'UPDATE es_krim SET merk = :merk_eskrim, rasa = :rasa, harga = :harga, id_supplier = :id_supplier WHERE id_es_krim = :id',
             [
                 'id' => $id,
-                'id_admin' => $request->id_admin,
-                'nama_admin' => $request->nama_admin,
-                'alamat' => $request->alamat,
-                'username' => $request->username,
-                'password' => $request->password,
+                'merk_eskrim' => $request->merk_eskrim,
+                'rasa' => $request->rasa,
+                'harga' => $request->harga,
+                'id_supplier' => $request->id_supplier,
             ]
         );
 
@@ -85,7 +85,10 @@ class AdminController extends Controller
     // public function to delete a row from a table
     public function delete($id)
     {
+        //$merk = DB::select('SELECT merk FROM es_krim WHERE id_es_krim = :id_es_krim', ['id_es_krim' => $id]);
         DB::delete('DELETE FROM es_krim WHERE id_es_krim = :id_es_krim', ['id_es_krim' => $id]);
+        DB::update('ALTER TABLE es_krim DROP id_es_krim');
+        DB::update('ALTER TABLE es_krim ADD id_es_krim INT NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST');
         return redirect()->route('admin.index')->with('success', 'Data Es Krim berhasil dihapus');
     }
 }

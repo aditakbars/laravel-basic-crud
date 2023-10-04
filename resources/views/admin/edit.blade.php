@@ -7,6 +7,7 @@
     <ul>
         @foreach($errors->all() as $error)
         <li>{{ $error }}</li>
+
         @endforeach
     </ul>
 </div>
@@ -20,7 +21,7 @@
             <div class="mb-3">
                 <label for="merk_eskrim" class="form-label">Merk Es Krim</label>
                 <input type="text" class="form-control" id="merk_eskrim" name="merk_eskrim"
-                    value="{{ $data->merk_eskrim }}">
+                    value="{{ $data->merk }}">
             </div>
             <div class="mb-3">
                 <label for="rasa" class="form-label">Rasa</label>
@@ -33,8 +34,8 @@
             <div class="mb-3">
                 <label for="Supplier" class="form-label">Supplier</label>
                 <select class="form-select" aria-label="Default select example" name="id_supplier" id="">
-                    @foreach ($datas as $data)
-                    <option value="{{$data->id_supplier}}">{{$data->nama_supplier}}</option>
+                    @foreach ($datasups as $datasup)
+                    <option value="{{$datasup->id_supplier}}">{{$datasup->nama_supplier}}</option>
                     @endforeach
                 </select>
             </div>

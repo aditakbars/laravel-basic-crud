@@ -79,6 +79,34 @@ class AdminController extends Controller
         return redirect()->route('admin.index')->with('success', 'Data Es Krim berhasil disimpan');
     }
 
+    public function createSup()
+    {
+        $datas = DB::select('SELECT * FROM supplier');
+        return view('admin.add_sup')->with('datas',$datas);
+    }
+    // public function store the value to a table
+    public function storeSup(Request $request)
+    {
+        $request->validate([
+            'id_supplier' => 'required',
+            'nama_supplier' => 'required',
+            'alamat' => 'required',
+            'no_telepon' => 'required',
+            'established' => 'required',
+        ]);
+        DB::insert(
+            'INSERT INTO supplier(id_supplier, nama_supplier, alamat_supplier, no_telepon, established) VALUES (:id_supplier, :nama_supplier, :alamat_supplier, :no_telepon, :established)',
+            [
+                'id_supplier' => $request->id_supplier,
+                'nama_supplier' => $request->nama_supplier,
+                'alamat_supplier' => $request->alamat,
+                'no_telepon' => $request->no_telepon,
+                'established' => $request->established,
+            ]
+        );
+        return redirect()->route('admin.showSup')->with('success', 'Data Supplier berhasil disimpan');
+    }
+
     // public function edit a row from a table
     public function edit($id)
     {

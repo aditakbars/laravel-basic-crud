@@ -5,7 +5,7 @@
 <h4 class="mt-4">Data Es Krim</h4>
 
 <a href="{{ route('admin.create') }}" type="button" class="btn btn-primary rounded-3 mb-2">Tambah Data Es Krim</a>
-<a href="{{ route('admin.showIce') }}" type="button" class="btn btn-success rounded-3 mb-2 ml-3 disabled">Daftar Es Krim</a>
+<a href="#" type="button" class="btn btn-success rounded-3 mb-2 ml-3" aria-pressed="true">Daftar Es Krim</a>
 <a href="{{ route('admin.showSup') }}" type="button" class="btn btn-outline-success rounded-3 mb-2 ml-3">Daftar Supplier</a>
 
 @if($message = Session::get('success'))

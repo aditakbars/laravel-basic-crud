@@ -16,6 +16,7 @@
         <h5 class="card-title fw-bolder mb-3">Tambah Es Krim</h5>
         <form method="post" action="{{route('admin.store')}}">
             @csrf
+
             <div class="mb-3">
                 <label for="merk_eskrim" class="form-label">Merk Es krim</label>
                 <input type="text" class="form-control" id="merk_eskrim" name="merk_eskrim">

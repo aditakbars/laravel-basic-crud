@@ -25,7 +25,7 @@ class AdminController extends Controller
     //
     public function create()
     {
-        $datas = DB::select('SELECT * FROM es_krim');
+        $datas = DB::select('SELECT * FROM supplier');
         return view('admin.add')->with('datas',$datas);
     }
     // public function store the value to a table
@@ -38,7 +38,7 @@ class AdminController extends Controller
             'id_supplier' => 'required',
         ]);
         DB::insert(
-            'INSERT INTO es_krim(merk_es_krim, rasa, harga, id_supplier) VALUES (:merk_es_krim, :rasa, :harga, :id_supplier)',
+            'INSERT INTO es_krim(merk, rasa, harga, id_supplier) VALUES (:merk_eskrim, :rasa, :harga, :id_supplier)',
             [
                 'merk_eskrim' => $request->merk_eskrim,
                 'rasa' => $request->rasa,

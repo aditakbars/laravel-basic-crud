@@ -20,7 +20,9 @@ Route::get('ice-creams/add', [AdminController::class, 'create'])->name('admin.cr
 Route::get('suppliers/add', [AdminController::class, 'createSup'])->name('admin.createSup');
 Route::post('ice-creams/store', [AdminController::class, 'store'])->name('admin.store');
 Route::post('suppliers/store', [AdminController::class, 'storeSup'])->name('admin.storeSup');
-Route::get('edit/{id}', [AdminController::class, 'edit'])->name('admin.edit');
-Route::post('update/{id}', [AdminController::class, 'update'])->name('admin.update');
+Route::get('ice-creams/edit/{id}', [AdminController::class, 'edit'])->name('admin.edit');
+Route::post('ice-creams/update/{id}', [AdminController::class, 'update'])->name('admin.update');
+// Route::get('suppliers/edit/{id}', [AdminController::class, 'editSup'])->name('admin.editSup');
+// Route::post('suppliers/update/{id}', [AdminController::class, 'updateSup'])->name('admin.updateSup');
 Route::post('ice-creams/delete/{id}', [AdminController::class, 'delete'])->name('admin.delete');
 Route::post('suppliers/delete/{id}', [AdminController::class, 'deleteSUp'])->name('admin.deleteSup');

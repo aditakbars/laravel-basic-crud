@@ -43,12 +43,12 @@ class AdminController extends Controller
     
         // Query data admin dengan filter berdasarkan nama jika search term ada
         if ($searchTerm) {
-            $datas = DB::select('SELECT * FROM `supplier`  WHERE nama LIKE ?', ['%' . $searchTerm . '%']);
+            $datas = DB::select('SELECT * FROM `supplier`  WHERE nama_supplier LIKE ?', ['%' . $searchTerm . '%']);
         } else {
             // Jika tidak ada search term, tampilkan semua data admin
             $datas = DB::select('SELECT * FROM `supplier`');
         }
-    
+
         return view('admin.supplier')->with('datas', $datas)->with('searchTerm', $searchTerm);
     }
 
@@ -140,6 +140,39 @@ class AdminController extends Controller
         return redirect()->route('admin.index')->with('success', 'Data Es Krim berhasil diubah');
     }
 
+    public function editSup($id)
+    {
+        $data = DB::table('supplier')->where('id_supplier', $id)->first();
+        $datas = DB::select('SELECT * FROM supplier');
+        return view('admin.edit_sup')->with('data', $data)->with('datas', $datas);
+    }
+
+    // public function to update the table value
+    public function updateSup($id, Request $request)
+    {
+        $request->validate([
+            'nama_supplier' => 'required',
+            'alamat_supplier' => 'required',
+            'no_telepon' => 'required',
+            'established' => 'required',
+        ]);
+
+        // dd($request->all());
+
+        DB::update(
+            'UPDATE supplier SET nama_supplier = :nama_supplier, alamat_supplier = :alamat_supplier, no_telepon = :no_telepon, established = :established WHERE id_supplier = :id',
+            [
+                'id' => $id,
+                'nama_supplier' => $request->nama_supplier,
+                'alamat_supplier' => $request->alamat_supplier,
+                'no_telepon' => $request->no_telepon,
+                'established' => $request->established,
+            ]
+        );
+
+        return redirect()->route('admin.showSup')->with('success', 'Data Supplier berhasil diubah');
+    }
+
     // public function to delete a row from a table
     public function delete($id)
     {
@@ -152,10 +185,7 @@ class AdminController extends Controller
 
     public function deleteSup($id)
     {
-        //$merk = DB::select('SELECT merk FROM es_krim WHERE id_es_krim = :id_es_krim', ['id_es_krim' => $id]);
         DB::delete('DELETE FROM supplier WHERE id_supplier = :id_supplier', ['id_supplier' => $id]);
-        DB::update('ALTER TABLE supplier DROP id_supplier');
-        DB::update('ALTER TABLE supplier ADD id_supplier INT NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST');
-        return redirect()->route('admin.supplier')->with('success', 'Data Supplier berhasil dihapus');
+        return redirect()->route('admin.showSup')->with('success', 'Data Supplier berhasil dihapus');
     }
 }

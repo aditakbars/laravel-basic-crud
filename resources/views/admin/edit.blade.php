@@ -20,8 +20,7 @@
             @csrf
             <div class="mb-3">
                 <label for="merk_eskrim" class="form-label">Merk Es Krim</label>
-                <input type="text" class="form-control" id="merk_eskrim" name="merk_eskrim"
-                    value="{{ $data->merk }}">
+                <input type="text" class="form-control" id="merk_eskrim" name="merk_eskrim" value="{{ $data->merk }}">
             </div>
             <div class="mb-3">
                 <label for="rasa" class="form-label">Rasa</label>

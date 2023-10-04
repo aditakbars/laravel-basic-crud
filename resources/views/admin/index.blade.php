@@ -10,12 +10,12 @@
 <a href="{{ route('admin.showSup') }}" type="button" class="btn btn-outline-success rounded-3 mb-2 ml-3">Daftar Supplier</a>
 
 @if($message = Session::get('success'))
-<div class="alert alert-success mt-3" role="alert">
+<div class="alert alert-success" role="alert">
     {{ $message }}
 </div>
 @endif
 
-<form action="{{route('admin.index')}}" method="GET" class="mb-2 mt-1">
+<form action="{{route('admin.index')}}" method="GET" class="mb-3 mt-1">
     <input type="text" name="search" class="form-control rounded-1" placeholder="Cari Es Krim" value="{{$searchTerm}}">
 </form>
 
@@ -73,7 +73,6 @@
                         </div>
                     </div>
                 </div>
-
             </td>
         </tr>
         @endforeach

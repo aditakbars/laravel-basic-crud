@@ -39,7 +39,7 @@
             <td>{{ $data->no_telepon }}</td>
             <td>{{ $data->established }}</td>
             <td>
-                <a href="{{ route('admin.edit', $data->id_supplier) }}" type="button"
+                <a href="{{ route('admin.editSup', $data->id_supplier) }}" type="button"
                     class="btn btn-warning rounded-3">Ubah</a>
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-danger" data-bs-toggle="modal"
